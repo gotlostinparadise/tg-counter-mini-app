@@ -27,8 +27,8 @@
     }
 
     #counter-circle {
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
         border-radius: 50%;
         background-color: hsl(204, 70%, 53%);
         display: flex;
@@ -94,7 +94,7 @@
     }
 
     function updateCircleColor() {
-        circleDarkness += 20;
+        circleDarkness += 15;
         counterCircle.style.backgroundColor = `hsl(204, 70%, ${53 - circleDarkness * 1.53}%)`;
     }
 

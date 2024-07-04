@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Counter App</title>
+    <style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    #counter-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #3498db;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    #counter {
+        font-size: 48px;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <div id="counter-circle">
+        <span id="counter">0</span>
+    </div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+    let counterElement = document.getElementById('counter');
+    let counterCircle = document.getElementById('counter-circle');
+    let count = 0;
+
+    counterCircle.addEventListener('click', () => {
+        count++;
+        counterElement.textContent = count;
+
+        // If you want to send the count back to the Telegram app
+        if (window.Telegram.WebApp) {
+            window.Telegram.WebApp.sendData(JSON.stringify({count: count}));
+        }
+    });
+
+    // Initialize Telegram WebApp
+    if (window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+    }
+</script>
+</body>
+</html>

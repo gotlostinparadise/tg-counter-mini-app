@@ -17,6 +17,15 @@
         overflow: hidden;
     }
 
+    #ceiling {
+        width: 100%;
+        height: 20px;
+        background-color: #34495e;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
     #counter-circle {
         width: 200px;
         height: 200px;
@@ -56,6 +65,7 @@
 </style>
 </head>
 <body>
+    <div id="ceiling"></div>
     <div id="counter-circle">
         <span id="counter">0</span>
     </div>
@@ -68,18 +78,24 @@
     let counterElement = document.getElementById('counter');
     let counterCircle = document.getElementById('counter-circle');
     let stone = document.getElementById('stone');
+    let ceiling = document.getElementById('ceiling');
     let count = 0;
     let stoneHeight = 0;
-    let circledarkness = 0;
+    let circleDarkness = 0;
+    let ceilingHeight = ceiling.offsetHeight;
 
     function updateStonePosition() {
         stoneHeight += window.innerHeight * 0.005;
+        if (stoneHeight >= window.innerHeight - ceilingHeight - stone.offsetHeight) {
+            stoneHeight = 0;
+            updateCircleColor();
+        }
         stone.style.bottom = `${stoneHeight}px`;
     }
 
     function updateCircleColor() {
-        circledarkness += 5;
-        counterCircle.style.backgroundColor = `hsl(204, 70%, ${53 - circleDistance * 0.53}%)`;
+        circleDarkness += 5;
+        counterCircle.style.backgroundColor = `hsl(204, 70%, ${53 - circleDarkness * 0.53}%)`;
     }
 
     function showConfetti() {
@@ -95,13 +111,7 @@
         counterElement.textContent = count;
         updateStonePosition();
 
-        if (stoneHeight >= window.innerHeight) {
-            updateCircleColor();
-            stoneHeight = 0;
-            stone.style.bottom = '0px';
-        }
-
-        if (circleDistance >= 100) {
+        if (circleDarkness >= 100) {
             showConfetti();
             counterCircle.removeEventListener('click', arguments.callee);
         }

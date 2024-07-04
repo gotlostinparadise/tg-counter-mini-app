@@ -85,7 +85,7 @@
     let ceilingHeight = ceiling.offsetHeight;
 
     function updateStonePosition() {
-        stoneHeight += window.innerHeight * 0.005;
+        stoneHeight += window.innerHeight * 0.05;
         if (stoneHeight >= window.innerHeight - ceilingHeight - stone.offsetHeight) {
             stoneHeight = 0;
             updateCircleColor();
